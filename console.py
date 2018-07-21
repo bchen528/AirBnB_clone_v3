@@ -45,9 +45,21 @@ class HBNBCommand(cmd.Cmd):
         try:
             args = shlex.split(args)
             new_instance = eval(args[0])()
+            for i in args[1:]:
+                try:
+                    key = i.split('=')[0]
+                    value = i.split('=')[1]
+                    value = value.replace("_", " ")
+                    if hasattr(new_instance, key) is True:
+                        converter = type(getattr(new_instance, key))
+                        value = converter(value)
+                        setattr(new_instance, key, value)
+                except (ValueError, IndexError):
+                    pass
             new_instance.save()
             print(new_instance.id)
-
+        except IndexError:
+            pass
         except:
             print("** class doesn't exist **")
 
