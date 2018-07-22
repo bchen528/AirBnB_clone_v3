@@ -2,12 +2,17 @@
 '''
     Implementation of the State class
 '''
+import os
+from sqlalchemy import Column, String
+from models.base_model import BaseModel, Base
 
-from models.base_model import BaseModel
 
-
-class State(BaseModel):
+class State(BaseModel, Base):
     '''
         Implementation for the State.
     '''
-    name = ""
+    if os.environ.get("HBNB_TYPE_STORAGE") == "db":
+        __tablename__ = "states"
+        name = Column(String(128), nullable=False)
+    else:
+        name = ""
