@@ -2,8 +2,13 @@
 '''
     Package initializer
 '''
-
-from models.engine.file_storage import FileStorage
+import os
+if os.environ.get("HBNB_TYPE_STORAGE") == "db":
+    from models.engine import db_storage
+    storage = db_storage.DBStorage()
+else:
+    from models.engine import file_storage
+    storage = file_storage.FileStorage()
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -17,5 +22,4 @@ classes = {"User": User, "BaseModel": BaseModel,
            "City": City, "Amenity": Amenity,
            "Review": Review}
 
-storage = FileStorage()
 storage.reload()
