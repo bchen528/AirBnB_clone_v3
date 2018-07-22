@@ -2,7 +2,7 @@
 '''
     Implementation of the State class
 '''
-import os
+from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
@@ -14,14 +14,14 @@ class State(BaseModel, Base):
         Create relationship between class State (parent) to City (child)
     '''
     __tablename__ = "states"
-    if os.environ.get("HBNB_TYPE_STORAGE") == "db":
+    if getenv("HBNB_TYPE_STORAGE", "fs") == "db":
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state",
                               cascade="all, delete, delete-orphan")
     else:
         name = ""
 
-    if os.environ.get("HBNB_TYPE_STORAGE") == "fs":
+    if getenv("HBNB_TYPE_STORAGE", "fs") == "fs":
         @property
         def cities(self):
             '''

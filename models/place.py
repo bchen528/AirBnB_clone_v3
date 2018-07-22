@@ -2,7 +2,7 @@
 '''
     Define the class Place.
 '''
-import os
+from os import getenv
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from models.base_model import BaseModel, Base
 
@@ -12,7 +12,7 @@ class Place(BaseModel, Base):
         Define the class Place that inherits from BaseModel.
     '''
     __tablename__ = "places"
-    if os.environ.get("HBNB_TYPE_STORAGE") == "db":
+    if getenv("HBNB_TYPE_STORAGE", "fs") == "db":
         city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
         user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
         name_id = Column(String(128), nullable=False)
