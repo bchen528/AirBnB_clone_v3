@@ -6,7 +6,7 @@ import os
 import uuid
 from datetime import datetime
 import models
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
@@ -15,11 +15,11 @@ class BaseModel:
     '''
         Base class for other classes to be used for the duration.
     if HBNB_TYPE_STORAGE is "db":
+    #    if os.environ.get("HBNB_TYPE_STORAGE") == "db":
     '''
-    if os.environ.get("HBNB_TYPE_STORAGE") == "db":
-        id = Column(String(60), nullable=False, primary_key=True)
-        created_at = Column(String(60), default=datetime.utcnow(), nullable=False)
-        updated_at = Column(String(6), default=datetime.utcnow(), nullable=False)
+    id = Column(String(60), nullable=False, primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
 
     def __init__(self, *args, **kwargs):
         '''
