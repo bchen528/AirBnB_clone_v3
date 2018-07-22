@@ -11,8 +11,8 @@ class Place(BaseModel, Base):
     '''
         Define the class Place that inherits from BaseModel.
     '''
+    __tablename__ = "places"
     if os.environ.get("HBNB_TYPE_STORAGE") == "db":
-        __tablename__ = "places"
         city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
         user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
         name_id = Column(String(128), nullable=False)
