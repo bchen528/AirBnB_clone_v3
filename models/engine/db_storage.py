@@ -3,11 +3,12 @@
     Define class DatabaseStorage
 '''
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, MetaData
+from sqlalchemy.orm import sessionmaker, scoped_session
 import models
 from models.state import State
 from models.city import City
+from models.base_model import Base
 
 
 class DBStorage:
@@ -24,21 +25,19 @@ class DBStorage:
         user = os.environ.get('HBNB_MYSQL_USER')
         pwd = os.environ.get('HBNB_MYSQL_PWD')
         host = os.environ.get('HBNB_MYSQL_HOST')
-        engine = os.environ.get('HBNB_MYSQL_DB')
+        db = os.environ.get('HBNB_MYSQL_DB')
+        envv = os.environ.get('HBNB_ENV')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            user, pwd, host, db),self.__ pool_pre_ping=True)
-        self.__session = Base.metadata.create_all(self.__engine)
-        if os.environ.get('HBNB_ENV') == 'test':
+            user, pwd, host, db), pool_pre_ping=True)
+        if envv == 'test':
             Base.metadata.drop_all(self.__engine)
-        Session = sessionmaker(bind=engine)
-        self.__session = Session()
 
     def all(self, cls=None):
         '''
             Query current database session
         '''
         db_dict = {}
-        classes = Bases.metatable.tables.keys():
+        classes = Base.metadata.tables.keys()
         if cls is None:
             for c in classes:
                 objs = self.__session.query(c).all()
