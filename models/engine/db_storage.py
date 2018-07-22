@@ -3,7 +3,7 @@
     Define class DatabaseStorage
 '''
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session
 import models
 from models.state import State
@@ -37,7 +37,7 @@ class DBStorage:
             Query current database session
         '''
         db_dict = {}
-        classes = Bases.metatable.tables.keys()
+        classes = Base.metadata.tables.keys()
         if cls is None:
             for c in classes:
                 objs = self.__session.query(c).all()
