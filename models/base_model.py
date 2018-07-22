@@ -2,10 +2,11 @@
 '''
     This module defines the BaseModel class
 '''
+import os
 import uuid
 from datetime import datetime
 import models
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Integer
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
@@ -15,9 +16,10 @@ class BaseModel:
         Base class for other classes to be used for the duration.
     if HBNB_TYPE_STORAGE is "db":
     '''
-    id = Column(String(60), nullable=False, primary_key=True)
-    created_at = Column(default=datetime.utcnow(), nullable=False)
-    updated_at = Column(default=datetime.utcnow(), nullable=False)
+    if os.environ.get("HBNB_TYPE_STORAGE") == "db":
+        id = Column(String(60), nullable=False, primary_key=True)
+        created_at = Column(String(60), default=datetime.utcnow(), nullable=False)
+        updated_at = Column(String(6), default=datetime.utcnow(), nullable=False)
 
     def __init__(self, *args, **kwargs):
         '''
