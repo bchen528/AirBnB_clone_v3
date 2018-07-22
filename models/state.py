@@ -23,7 +23,7 @@ class State(BaseModel, Base):
 
     if os.environ.get("HBNB_TYPE_STORAGE") == "fs":
         @property
-        def cities:
+        def cities(self):
             '''
                 Return list of city instances if City.state_id==current State.id
                 FileStorage relationship between State and City
