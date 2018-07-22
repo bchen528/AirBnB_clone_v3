@@ -2,7 +2,7 @@
 '''
     This module defines the BaseModel class
 '''
-import os
+from os import getenv
 import uuid
 from datetime import datetime
 import models
@@ -15,7 +15,7 @@ class BaseModel:
     '''
         Base class for other classes to be used for the duration.
     if HBNB_TYPE_STORAGE is "db":
-    #    if os.environ.get("HBNB_TYPE_STORAGE") == "db":
+    #    if getenv("HBNB_TYPE_STORAGE", "fs") == "db":
     '''
     id = Column(String(60), nullable=False, primary_key=True)
     created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)

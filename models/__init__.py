@@ -2,13 +2,15 @@
 '''
     Package initializer
 '''
-import os
-if os.environ.get("HBNB_TYPE_STORAGE") == "db":
+from os import getenv
+
+if getenv("HBNB_TYPE_STORAGE", "fs") == "db":
     from models.engine import db_storage
     storage = db_storage.DBStorage()
 else:
     from models.engine import file_storage
     storage = file_storage.FileStorage()
+
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place

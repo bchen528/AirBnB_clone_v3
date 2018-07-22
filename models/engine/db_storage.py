@@ -2,7 +2,7 @@
 '''
     Define class DatabaseStorage
 '''
-import os
+from os import getenv
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session
 import models
@@ -22,11 +22,11 @@ class DBStorage:
         '''
             Create engine and link to MySQL databse (hbnb_dev, hbnb_dev_db)
         '''
-        user = os.environ.get('HBNB_MYSQL_USER')
-        pwd = os.environ.get('HBNB_MYSQL_PWD')
-        host = os.environ.get('HBNB_MYSQL_HOST')
-        db = os.environ.get('HBNB_MYSQL_DB')
-        envv = os.environ.get('HBNB_ENV')
+        user = getenv("HBNB_MYSQL_USER")
+        pwd = getenv("HBNB_MYSQL_PWD")
+        host = getenv("HBNB_MYSQL_HOST")
+        db = getenv("HBNB_MYSQL_DB")
+        envv = getenv("HBNB_ENV", "none")
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
             user, pwd, host, db), pool_pre_ping=True)
         if envv == 'test':
