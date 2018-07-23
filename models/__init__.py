@@ -24,4 +24,11 @@ classes = {"User": User, "BaseModel": BaseModel,
            "City": City, "Amenity": Amenity,
            "Review": Review}
 
+attrb_types = {"state_id": str, "name": str, "state_id": str,
+               "place_id": str, "user_id": str, "text": str, "email": str,
+               "password": str, "first_name": str, "last_name": str,
+               "city_id": str, "user_id": str, "description": str,
+               "number_rooms": int, "max_guest": int, "price_by_night": int,
+               "latitude": float, "longitude": float, "amenity_ids": list}
+
 storage.reload()
