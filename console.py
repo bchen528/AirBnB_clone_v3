@@ -5,7 +5,6 @@
 import cmd
 import json
 import shlex
-from models.engine.file_storage import FileStorage
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -14,14 +13,22 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-
+from os import getenv
+import models
 
 class HBNBCommand(cmd.Cmd):
     '''
-        Contains the entry point of the command interpreter.
-    '''
+    self.do_update(update_param)
+    i = i.replace("=", " ")
+    update_param = "{} {} {}".format(args[0], new_instance.id,
+    i)
+    print("Printing i {}".format(i))
+    print("Printing update_param: {}".format(update_param))
 
+    Contains the entry point of the command interpreter.
+    '''
     prompt = ("(hbnb) ")
+
 
     def do_quit(self, args):
         '''
@@ -46,21 +53,25 @@ class HBNBCommand(cmd.Cmd):
         try:
             args = shlex.split(args)
             new_instance = eval(args[0])()
+#            print(args)
             for i in args[1:]:
                 try:
-                    key = i.split('=')[0]
-                    value = i.split('=')[1]
-                    value = value.replace("_", " ")
+                    key = i.split("=")[0]
+                    value = i.split("=")[1]
                     if hasattr(new_instance, key) is True:
-                        converter = type(getattr(new_instance, key))
+                        value = value.replace("_", " ")
+                        converter = models.attrb_types[key]
+                        print("New_instance.name is:  {}".format(converter))
                         value = converter(value)
+                        print("Printing value type: {}".format(type(value)))
                         setattr(new_instance, key, value)
                 except (ValueError, IndexError):
                     pass
             new_instance.save()
             print(new_instance.id)
-        except:
-            print("** class doesn't exist **")
+        except IndexError:
+            print("Class doesn't exists")
+
 
     def do_show(self, args):
         '''
@@ -82,7 +93,6 @@ class HBNBCommand(cmd.Cmd):
         except NameError:
             print("** class doesn't exist **")
             return
-        key = args[0] + "." + args[1]
         key = args[0] + "." + args[1]
         try:
             value = obj_dict[key]
@@ -127,6 +137,7 @@ class HBNBCommand(cmd.Cmd):
 #        storage = FileStorage()
         storage.reload()
         objects = storage.all()
+        print("What is oBjects? {}".format(objects))
         try:
             if len(args) != 0:
                 eval(args)
