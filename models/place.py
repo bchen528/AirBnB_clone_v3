@@ -39,7 +39,6 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
-    if getenv("HBNB_TYPE_STORAGE", "fs") == "fs":
         @property
         def reviews(self):
             '''
