@@ -18,14 +18,7 @@ import models
 
 class HBNBCommand(cmd.Cmd):
     '''
-    self.do_update(update_param)
-    i = i.replace("=", " ")
-    update_param = "{} {} {}".format(args[0], new_instance.id,
-    i)
-    print("Printing i {}".format(i))
-    print("Printing update_param: {}".format(update_param))
-
-    Contains the entry point of the command interpreter.
+        Contains the entry point of the command interpreter.
     '''
     prompt = ("(hbnb) ")
 
@@ -119,7 +112,6 @@ class HBNBCommand(cmd.Cmd):
             return
         class_name = args[0]
         class_id = args[1]
-#        storage = FileStorage()
         storage.reload()
         obj_dict = storage.all()
         try:
@@ -161,7 +153,6 @@ class HBNBCommand(cmd.Cmd):
             Update an instance based on the class name and id
             sent as args.
         '''
-#        storage = FileStorage()
         storage.reload()
         args = shlex.split(args)
         if len(args) == 0:
@@ -207,7 +198,6 @@ class HBNBCommand(cmd.Cmd):
             Counts/retrieves the number of instances.
         '''
         obj_list = []
-#        storage = FileStorage()
         storage.reload()
         objects = storage.all()
         try:
