@@ -54,21 +54,29 @@ class HBNBCommand(cmd.Cmd):
             args = shlex.split(args)
             new_instance = eval(args[0])()
 #            print(args)
+            new_instance.save()
+            print(new_instance.id)
             for i in args[1:]:
                 try:
                     key = i.split("=")[0]
                     value = i.split("=")[1]
                     if hasattr(new_instance, key) is True:
                         value = value.replace("_", " ")
-                        converter = models.attrb_types[key]
-                        print("New_instance.name is:  {}".format(converter))
+                        if key in models.int_types:
+                            converter = int
+                        elif key in models.float_types:
+                            converter = float
+                        elif key == "amenisty_ids":
+                            converter = list
+                        else:
+                            converter = str
+#                        converter = models.attrb_types[key]
+#                        print("New_instance.name is:  {}".format(converter))
                         value = converter(value)
-                        print("Printing value type: {}".format(type(value)))
+#                        print("Printing value type: {}".format(type(value)))
                         setattr(new_instance, key, value)
                 except (ValueError, IndexError):
                     pass
-            new_instance.save()
-            print(new_instance.id)
         except IndexError:
             print("Class doesn't exists")
 
@@ -85,9 +93,8 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-#        storage = FileStorage()
         storage.reload()
-        obj_dict = storage.all()
+        obj_dict = storage.all(args[0])
         try:
             eval(args[0])
         except NameError:
@@ -135,15 +142,11 @@ class HBNBCommand(cmd.Cmd):
         '''
         args = args.split(" ")
         obj_list = []
-#        storage = FileStorage()
         storage.reload()
         if len(args) == 1:
             objects = storage.all(args[0])
         else:
             objects = storage.all()
-#        print(objects)
-#        print("What is oBjects? {}".format(objects))
-#        print("value of args[0]: {}".format(args[0]))
         try:
             if args[0] != "":
                 models.classes[args[0]]
@@ -151,12 +154,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         for key, val in objects.items():
-#            if len(args) != 0:
-#                if type(val) is eval(args):
             obj_list.append(val)
-#        else:
-#                obj_list.append(val)
-
         print(obj_list)
 
     def do_update(self, args):

@@ -18,6 +18,9 @@ class FileStorage:
             Return the dictionary
         '''
         new_dict = {}
+        if cls == None:
+            return self.__objects
+
         if cls != "":
             for k, v in self.__objects.items():
                 if cls == k.split(".")[0]:
