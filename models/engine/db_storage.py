@@ -37,19 +37,34 @@ class DBStorage:
             Query current database session
         '''
         db_dict = {}
-        classes = Base.metadata.tables.keys()
-        if cls is None:
-            for c in classes:
-                objs = self.__session.query(c).all()
-                for obj in objs:
-                    key = "{}.{}".format(obj.__class__.__name__, obj.id)
-                    db_dict[key] = obj
-        else:
-            objs = self.__session.query(cls).all()
+        if cls is not None:
+            objs = self.__session.query(models.classes[cls]).all()
             for obj in objs:
+                print (obj)
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
+                print(key)
                 db_dict[key] = obj
-        return (db_dict)
+            print(db_dict)
+            return db_dict
+
+#        db_dict = {}
+#        classes = Base.metadata.tables.keys()
+#        if cls is None:
+#            for c in classes:
+#                print (c)
+#                objs = self.__session.query(State).all()
+#                for obj in objs:
+#                    print(obj)
+#                    key = "{}.{}".format(obj.__class__.__name__, obj.id)
+#                    db_dict[key] = obj
+#        else:
+#            objs = self.__session.query(cls).all()
+#            for obj in objs:
+#                key = "{}.{}".format(obj.__class__.__name__, obj.id)
+#                db_dict[key] = obj
+#        print (db_dict)
+#        return (db_dict)
+#
 
     def new(self, obj):
         '''
