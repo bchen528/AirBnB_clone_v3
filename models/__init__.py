@@ -21,15 +21,18 @@ from models.review import Review
 
 classes = {"User": User, "BaseModel": BaseModel,
            "Place": Place, "State": State,
-           "City": City, "Amenity": Amenity,
-           "Review": Review}
+           "City": City, "Amenity": Amenity}
+#           "Review": Review}
 
-attrb_types = {"state_id": str, "name": str, "state_id": str,
+int_types = ["number_rooms", "max_guest", "price_by_night", "number_bathrooms"]
+float_types = ["latitude", "longitude"]
+"""
+"state_id": str, "name": str, "state_id": str,
                "place_id": str, "user_id": str, "text": str, "email": str,
                "password": str, "first_name": str, "last_name": str,
                "city_id": str, "user_id": str, "description": str,
-               "number_rooms": int, "number_bathrooms": int, "max_guest": int,
-               "price_by_night": int, "latitude": float, "longitude": float,
-               "amenity_ids": list}
-
+               "number_rooms": int, "max_guest": int, "price_by_night": int,
+               "latitude": float, "longitude": float, "amenity_ids": list,
+               "number_bathrooms": int}
+"""
 storage.reload()
