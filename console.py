@@ -18,14 +18,7 @@ import models
 
 class HBNBCommand(cmd.Cmd):
     '''
-    self.do_update(update_param)
-    i = i.replace("=", " ")
-    update_param = "{} {} {}".format(args[0], new_instance.id,
-    i)
-    print("Printing i {}".format(i))
-    print("Printing update_param: {}".format(update_param))
-
-    Contains the entry point of the command interpreter.
+        Contains the entry point of the command interpreter.
     '''
     prompt = ("(hbnb) ")
 
@@ -46,6 +39,9 @@ class HBNBCommand(cmd.Cmd):
         '''
             Create a new instance of class BaseModel and saves it
             to the JSON file.
+        converter = models.attrb_types[key]
+        print("New_instance.name is:  {}".format(converter))
+        print("Printing value type: {}".format(type(value)))
         '''
         if len(args) == 0:
             print("** class name missing **")
@@ -53,17 +49,21 @@ class HBNBCommand(cmd.Cmd):
         try:
             args = shlex.split(args)
             new_instance = eval(args[0])()
-#            print(args)
             for i in args[1:]:
                 try:
                     key = i.split("=")[0]
                     value = i.split("=")[1]
                     if hasattr(new_instance, key) is True:
                         value = value.replace("_", " ")
-                        converter = models.attrb_types[key]
-                        print("New_instance.name is:  {}".format(converter))
+                        if key in models.int_types:
+                            converter = int
+                        elif key in models.float_types:
+                            converter = float
+                        elif key == "amenisty_ids":
+                            converter = list
+                        else:
+                            converter = str
                         value = converter(value)
-                        print("Printing value type: {}".format(type(value)))
                         setattr(new_instance, key, value)
                 except (ValueError, IndexError):
                     pass
@@ -85,9 +85,8 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-#        storage = FileStorage()
         storage.reload()
-        obj_dict = storage.all()
+        obj_dict = storage.all(args[0])
         try:
             eval(args[0])
         except NameError:
@@ -113,7 +112,6 @@ class HBNBCommand(cmd.Cmd):
             return
         class_name = args[0]
         class_id = args[1]
-#        storage = FileStorage()
         storage.reload()
         obj_dict = storage.all()
         try:
@@ -135,15 +133,11 @@ class HBNBCommand(cmd.Cmd):
         '''
         args = args.split(" ")
         obj_list = []
-#        storage = FileStorage()
         storage.reload()
         if len(args) == 1:
             objects = storage.all(args[0])
         else:
             objects = storage.all()
-#        print(objects)
-#        print("What is oBjects? {}".format(objects))
-#        print("value of args[0]: {}".format(args[0]))
         try:
             if args[0] != "":
                 models.classes[args[0]]
@@ -151,12 +145,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         for key, val in objects.items():
-#            if len(args) != 0:
-#                if type(val) is eval(args):
             obj_list.append(val)
-#        else:
-#                obj_list.append(val)
-
         print(obj_list)
 
     def do_update(self, args):
@@ -164,7 +153,6 @@ class HBNBCommand(cmd.Cmd):
             Update an instance based on the class name and id
             sent as args.
         '''
-#        storage = FileStorage()
         storage.reload()
         args = shlex.split(args)
         if len(args) == 0:
@@ -210,7 +198,6 @@ class HBNBCommand(cmd.Cmd):
             Counts/retrieves the number of instances.
         '''
         obj_list = []
-#        storage = FileStorage()
         storage.reload()
         objects = storage.all()
         try:

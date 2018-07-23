@@ -36,34 +36,24 @@ class DBStorage:
         '''
             Query current database session
         '''
-        print("ENTERING all in DB STORAGE")
         db_dict = {}
-        if cls is not None:
+
+        if cls != "":
             objs = self.__session.query(models.classes[cls]).all()
             for obj in objs:
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 db_dict[key] = obj
             return db_dict
-        #TODO: Handle if class is None
-
-#        db_dict = {}
-#        classes = Base.metadata.tables.keys()
-#        if cls is None:
-#            for c in classes:
-#                print (c)
-#                objs = self.__session.query(State).all()
-#                for obj in objs:
-#                    print(obj)
-#                    key = "{}.{}".format(obj.__class__.__name__, obj.id)
-#                    db_dict[key] = obj
-#        else:
-#            objs = self.__session.query(cls).all()
-#            for obj in objs:
-#                key = "{}.{}".format(obj.__class__.__name__, obj.id)
-#                db_dict[key] = obj
-#        print (db_dict)
-#        return (db_dict)
-#
+        else:
+            for k, v in models.classes.items():
+                if k != "BaseModel":
+                    objs = self.__session.query(v).all()
+                    if len(objs) > 0:
+                        for obj in objs:
+                            key = "{}.{}".format(obj.__class__.__name__,
+                                                 obj.id)
+                            db_dict[key] = obj
+            return db_dict
 
     def new(self, obj):
         '''
