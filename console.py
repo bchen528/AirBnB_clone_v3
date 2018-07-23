@@ -16,12 +16,12 @@ from models.review import Review
 from os import getenv
 import models
 
+
 class HBNBCommand(cmd.Cmd):
     '''
         Contains the entry point of the command interpreter.
     '''
     prompt = ("(hbnb) ")
-
 
     def do_quit(self, args):
         '''
@@ -61,8 +61,8 @@ class HBNBCommand(cmd.Cmd):
                     pass
             new_instance.save()
             print(new_instance.id)
-        except IndexError:
-            print("Class doesn't exists")
+        except:
+            print("** class doesn't exists **")
 
     def do_show(self, args):
         '''
@@ -221,7 +221,6 @@ class HBNBCommand(cmd.Cmd):
             func(cmd_arg)
         except:
             print("*** Unknown syntax:", args[0])
-
 
 if __name__ == "__main__":
     '''
