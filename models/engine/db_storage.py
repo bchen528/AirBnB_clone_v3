@@ -36,7 +36,6 @@ class DBStorage:
         '''
             Query current database session
         '''
-        print("ENTERING all in DB STORAGE")
         db_dict = {}
 
         if cls != "":
