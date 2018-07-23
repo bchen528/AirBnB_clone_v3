@@ -56,27 +56,6 @@ class DBStorage:
                             db_dict[key] = obj
             return db_dict
 
-        #TODO: Handle if class is None
-
-#        db_dict = {}
-#        classes = Base.metadata.tables.keys()
-#        if cls is None:
-#            for c in classes:
-#                print (c)
-#                objs = self.__session.query(State).all()
-#                for obj in objs:
-#                    print(obj)
-#                    key = "{}.{}".format(obj.__class__.__name__, obj.id)
-#                    db_dict[key] = obj
-#        else:
-#            objs = self.__session.query(cls).all()
-#            for obj in objs:
-#                key = "{}.{}".format(obj.__class__.__name__, obj.id)
-#                db_dict[key] = obj
-#        print (db_dict)
-#        return (db_dict)
-#
-
     def new(self, obj):
         '''
             Add object to current database session
