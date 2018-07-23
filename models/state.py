@@ -12,7 +12,7 @@ class State(BaseModel, Base):
     '''
         Implementation for the State.
         Create relationship between class State (parent) to City (child)
-    if getenv("HBNB_TYPE_STORAGE", "fs") == "fs":
+        if getenv("HBNB_TYPE_STORAGE", "fs") == "fs":
     '''
     __tablename__ = "states"
 
