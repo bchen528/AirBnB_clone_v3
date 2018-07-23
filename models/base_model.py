@@ -15,7 +15,6 @@ class BaseModel:
     '''
         Base class for other classes to be used for the duration.
     if HBNB_TYPE_STORAGE is "db":
-    #    if getenv("HBNB_TYPE_STORAGE", "fs") == "db":
     '''
     id = Column(String(60), nullable=False, primary_key=True)
     created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
@@ -73,4 +72,7 @@ class BaseModel:
         return (cp_dct)
 
     def delete(self):
+        '''
+            Deletes an object
+        '''
         models.storage.delete(self)
