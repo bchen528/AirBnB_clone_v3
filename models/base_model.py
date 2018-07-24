@@ -8,13 +8,14 @@ from datetime import datetime
 import models
 from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+
+
 Base = declarative_base()
 
 
 class BaseModel:
     '''
         Base class for other classes to be used for the duration.
-    if HBNB_TYPE_STORAGE is "db":
     '''
     id = Column(String(60), nullable=False, primary_key=True)
     created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
