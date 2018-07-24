@@ -6,6 +6,7 @@ from os import getenv
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
+# from models.amenity import Amenity
 
 
 place_amenity = Table('place_amenity', Base.metadata,
@@ -14,6 +15,7 @@ place_amenity = Table('place_amenity', Base.metadata,
                       Column('amenity_id', String(60),
                              ForeignKey("amenities.id"),
                              primary_key=True, nullable=False))
+
 
 class Place(BaseModel, Base):
     '''
@@ -34,7 +36,8 @@ class Place(BaseModel, Base):
         reviews = relationship("Review", backref="place",
                                cascade="all, delete, delete-orphan")
         amenities = relationship("Amenity", secondary=place_amenity,
-                                 viewonly=False)
+                                 viewonly=False,
+                                 back_populates="place_amenities")
     else:
         city_id = ""
         user_id = ""
@@ -63,7 +66,7 @@ class Place(BaseModel, Base):
         @property
         def amenities(self):
             '''
-                Return list: amenity instances if Amenity.place_id=curr place.id
+                Return list: amenity inst's if Amenity.place_id=curr place.id
                 FileStorage many to many relationship between Place and Amenity
             '''
             list_amenities = []
@@ -72,7 +75,7 @@ class Place(BaseModel, Base):
                     amenity_list.append(amenity)
             return list_amenities
 
-        @setter.amenities
+        @amenities.setter
         def amenities(self, amenity=None):
             '''
                 Set list: amenity instances if Amenity.place_id==curr place.id
