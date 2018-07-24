@@ -5,6 +5,7 @@
 import cmd
 import json
 import shlex
+import models
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -13,8 +14,6 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-from os import getenv
-import models
 
 
 class HBNBCommand(cmd.Cmd):
@@ -63,6 +62,7 @@ class HBNBCommand(cmd.Cmd):
             print(new_instance.id)
         except:
             print("** class doesn't exist **")
+            return
 
     def do_show(self, args):
         '''
@@ -76,7 +76,6 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-        storage.reload()
         obj_dict = storage.all(args[0])
         try:
             eval(args[0])
@@ -124,19 +123,18 @@ class HBNBCommand(cmd.Cmd):
         '''
         args = args.split(" ")
         obj_list = []
-        storage.reload()
-        if len(args) == 1:
-            objects = storage.all(args[0])
-        else:
-            objects = storage.all()
+        objects = storage.all(args[0])
         try:
             if args[0] != "":
                 models.classes[args[0]]
-        except KeyError:
+        except (KeyError, NameError):
             print("** class doesn't exist **")
             return
-        for key, val in objects.items():
-            obj_list.append(val)
+        try:
+            for key, val in objects.items():
+                obj_list.append(val)
+        except:
+            pass
         print(obj_list)
 
     def do_update(self, args):
