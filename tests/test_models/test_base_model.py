@@ -5,10 +5,10 @@
 '''
 
 import unittest
-from models.base_model import BaseModel
-from io import StringIO
 import sys
 import datetime
+from models.base_model import BaseModel
+from io import StringIO
 from os import getenv
 
 storage = getenv("HBNB_TYPE_STORAGE", "fs")
