@@ -7,16 +7,18 @@
 import unittest
 from models.base_model import BaseModel
 from models.user import User
+from os import getenv
 from io import StringIO
 import sys
 import datetime
 
 
+storage = getenv("HBNB_TYPE_STORAGE", "fs")
+
 class TestUser(unittest.TestCase):
     '''
         Testing User class
     '''
-
     def test_User_inheritance(self):
         '''
             tests that the User class Inherits from BaseModel
@@ -24,6 +26,7 @@ class TestUser(unittest.TestCase):
         new_user = User()
         self.assertIsInstance(new_user, BaseModel)
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_User_attributes(self):
         '''
             Test the user attributes exist
@@ -35,6 +38,7 @@ class TestUser(unittest.TestCase):
         self.assertTrue("last_name" in new_user.__dir__())
         self.assertTrue("password" in new_user.__dir__())
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_type_email(self):
         '''
             Test the type of name
@@ -43,6 +47,7 @@ class TestUser(unittest.TestCase):
         name = getattr(new, "email")
         self.assertIsInstance(name, str)
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_type_first_name(self):
         '''
             Test the type of name
@@ -51,6 +56,7 @@ class TestUser(unittest.TestCase):
         name = getattr(new, "first_name")
         self.assertIsInstance(name, str)
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_type_last_name(self):
         '''
             Test the type of last_name
@@ -59,6 +65,7 @@ class TestUser(unittest.TestCase):
         name = getattr(new, "last_name")
         self.assertIsInstance(name, str)
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_type_password(self):
         '''
             Test the type of password
@@ -66,3 +73,15 @@ class TestUser(unittest.TestCase):
         new = User()
         name = getattr(new, "password")
         self.assertIsInstance(name, str)
+
+    def test_user_hasattr(self):
+        '''
+            Check if attributes exists
+        '''
+        new = User()
+        self.assertTrue(hasattr(new, "email"))
+        self.assertTrue(hasattr(new, "password"))
+        self.assertTrue(hasattr(new, "first_name"))
+        self.assertTrue(hasattr(new, "last_name"))
+        self.assertTrue(hasattr(new, "places"))
+        self.assertTrue(hasattr(new, "reviews"))
