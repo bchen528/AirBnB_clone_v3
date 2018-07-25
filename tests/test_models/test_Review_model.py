@@ -7,6 +7,9 @@
 import unittest
 from models.base_model import BaseModel
 from models.review import Review
+from os import getenv
+
+storage = getenv("HBNB_TYPE_STORAGE", "fs")
 
 
 class TestReview(unittest.TestCase):
@@ -31,6 +34,7 @@ class TestReview(unittest.TestCase):
         self.assertTrue("user_id" in new_review.__dir__())
         self.assertTrue("text" in new_review.__dir__())
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_Review_attributes(self):
         '''
             Test that Review class has place_id, user_id and text
