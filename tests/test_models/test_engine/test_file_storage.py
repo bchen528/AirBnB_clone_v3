@@ -110,10 +110,13 @@ class testFileStorage(unittest.TestCase):
         '''
             Test delete method
         '''
+        fs = FileStorage()
         new_state = State()
-        new_state.name = "California"
-        print(new_state)
-        new_state.save()
-        self.storage.new(new_state)
-        self.storage.delete(new_state)
-        self.assertIsInstance(new_state, State)
+        fs.new(new_state)
+        state_id = new_state.id
+        fs.save()
+        fs.delete(new_state)
+        with open("file.json", encoding="UTF-8") as fd:
+            state_dict = json.load(fd)
+        for k, v in state_dict.items():
+            self.assertFalse(state_id == k.split('.')[1])
