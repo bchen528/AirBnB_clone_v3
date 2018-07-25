@@ -47,3 +47,19 @@ class TestReview(unittest.TestCase):
         self.assertIsInstance(place_id, str)
         self.assertIsInstance(user_id, str)
         self.assertIsInstance(text, str)
+
+    def test_hasattr_Review(self):
+        '''
+            Check if attributes exists
+        '''
+        new_review = Review()
+        self.assertTrue(hasattr(new_review, "text"))
+        self.assertTrue(hasattr(new_review, "place_id"))
+        self.assertTrue(hasattr(new_review, "user_id"))
+
+    def test_review_table(self):
+        '''
+            Check if the tablename is correct
+        '''
+        new_review = Review()
+        self.assertEqual(new_review.__tablename__, "reviews")
