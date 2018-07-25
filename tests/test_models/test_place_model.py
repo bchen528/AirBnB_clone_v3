@@ -8,7 +8,6 @@ import unittest
 from models.base_model import BaseModel
 from models.place import Place
 from os import getenv, remove
-import pep8
 
 storage = getenv("HBNB_TYPE_STORAGE", "fs")
 
