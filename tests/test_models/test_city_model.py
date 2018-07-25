@@ -7,6 +7,9 @@
 import unittest
 from models.base_model import BaseModel
 from models.city import City
+from os import getenv
+
+storage = getenv("HBNB_TYPE_STORAGE", "fs")
 
 
 class TestUser(unittest.TestCase):
@@ -26,6 +29,7 @@ class TestUser(unittest.TestCase):
         self.assertTrue("state_id" in new_city.__dir__())
         self.assertTrue("name" in new_city.__dir__())
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_type_name(self):
         '''
             Test the type of name
@@ -34,6 +38,7 @@ class TestUser(unittest.TestCase):
         name = getattr(new_city, "name")
         self.assertIsInstance(name, str)
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_type_name(self):
         '''
             Test the type of name
