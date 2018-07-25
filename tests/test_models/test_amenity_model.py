@@ -7,6 +7,9 @@
 import unittest
 from models.base_model import BaseModel
 from models.amenity import Amenity
+from os import getenv
+
+storage = getenv("HBNB_TYPE_STORAGE", "fs")
 
 
 class TestAmenity(unittest.TestCase):
@@ -28,6 +31,7 @@ class TestAmenity(unittest.TestCase):
         new_amenity = Amenity()
         self.assertTrue("name" in new_amenity.__dir__())
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_Amenity_attribute_type(self):
         '''
             Test that Amenity class had name attribute's type.
