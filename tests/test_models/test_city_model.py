@@ -46,3 +46,19 @@ class TestUser(unittest.TestCase):
         new_city = City()
         name = getattr(new_city, "state_id")
         self.assertIsInstance(name, str)
+
+    def test_hasattr_city(self):
+        '''
+            Check if attributes exists
+        '''
+        new_city = City()
+        self.assertTrue(hasattr(new_city, "name"))
+        self.assertTrue(hasattr(new_city, "state_id"))
+        self.assertTrue(hasattr(new_city, "places"))
+
+    def test_check_tablename(self):
+        '''
+            Checks if the name of table is correct
+        '''
+        new_city = City()
+        self.assertEqual(new_city.__tablename__, "cities")
