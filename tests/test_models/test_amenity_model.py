@@ -39,3 +39,20 @@ class TestAmenity(unittest.TestCase):
         new_amenity = Amenity()
         name_value = getattr(new_amenity, "name")
         self.assertIsInstance(name_value, str)
+
+    def test_amenity_attr(self):
+        '''
+            Check if attribute exists
+        '''
+        new_amenity = Amenity()
+        self.assertTrue(hasattr(new_amenity, "name"))
+        self.assertTrue(hasattr(new_amenity, "place_amenities"))
+        self.assertTrue(hasattr(new_amenity, "__tablename__"))
+
+    def test_amenity_table(self):
+        '''
+           Check tablename
+        '''
+        new_amenity = Amenity()
+        tablename = new_amenity.__tablename__
+        self.assertEqual(tablename, "amenities")
