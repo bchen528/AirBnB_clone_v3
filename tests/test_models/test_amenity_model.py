@@ -5,10 +5,11 @@
 '''
 
 import unittest
+import pep8
 from models.base_model import BaseModel
 from models.amenity import Amenity
 from os import getenv, remove
-import pep8
+
 
 storage = getenv("HBNB_TYPE_STORAGE", "fs")
 
