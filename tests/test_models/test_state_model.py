@@ -37,3 +37,19 @@ class TestState(unittest.TestCase):
         new_state = State()
         name = getattr(new_state, "name")
         self.assertIsInstance(name, str)
+
+    def test_hasattr_state(self):
+        '''
+            Test if attributes exists
+        '''
+        new_state = State()
+        self.assertTrue(hasattr(new_state, "name"))
+        self.assertTrue(hasattr(new_state, "cities"))
+
+    def test_tablename(self):
+        '''
+            Check tablename
+        '''
+        new_state = State()
+        tablename = new_state.__tablename__
+        self.assertEqual(tablename, "states")
