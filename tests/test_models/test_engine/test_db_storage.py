@@ -5,7 +5,8 @@
 import time
 import unittest
 from models.engine.db_storage import DBStorage
-from models import *
+from models.user import User
+from models.state import State
 from os import getenv
 
 db = getenv("HBNB_TYPE_STORAGE")
