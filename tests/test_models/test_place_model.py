@@ -15,6 +15,12 @@ storage = getenv("HBNB_TYPE_STORAGE", "fs")
 class TestUser(unittest.TestCase):
     '''
         Testing Place class
+    def test_pep8_style_check(self):
+            Tests pep8 style
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(['models/places.py'])
+        self.assertEqual(p.total_errors, 0, "pep8 error needs fixing")
+
     '''
 
     @classmethod
@@ -22,7 +28,11 @@ class TestUser(unittest.TestCase):
         '''
             Sets up unittest
         '''
-        cls.new_place = Place()
+        cls.new_place = Place(city_id="0O01", user_id="0O02", name="house",
+                              description="awesome", number_rooms=3,
+                              number_bathrooms=2, max_guest=1,
+                              price_by_night=100, latitude=37.77,
+                              longitude=127.12)
 
     @classmethod
     def tearDownClass(cls):
@@ -61,7 +71,15 @@ class TestUser(unittest.TestCase):
         self.assertTrue("price_by_night" in self.new_place.__dir__())
         self.assertTrue("latitude" in self.new_place.__dir__())
         self.assertTrue("longitude" in self.new_place.__dir__())
-#        self.assertTrue("amenity_ids" in self.new_place.__dir__())
+
+    @unittest.skipIf(storage == "db", "Testing database storage only")
+    def test_place_amenity_attrb(self):
+        self.assertTrue("amenity_ids" in self.new_place.__dir__())
+
+    @unittest.skipIf(storage != "db", "Testing database storage only")
+    def test_place_amenity_dbattrb(self):
+        self.assertTrue("amenities" in self.new_place.__dir__())
+        self.assertTrue("reviews" in self.new_place.__dir__())
 
     @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_type_longitude(self):
