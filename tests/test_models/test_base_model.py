@@ -12,14 +12,12 @@ import datetime
 from os import getenv
 
 storage = getenv("HBNB_TYPE_STORAGE", "fs")
-@unittest.skipIf(storage == "db", "Testing database storage only")
 
 
 class TestBase(unittest.TestCase):
     '''
         Testing the base class model.
     '''
-
     def setUp(self):
         '''
             Initializing instance.

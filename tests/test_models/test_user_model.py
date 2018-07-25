@@ -16,6 +16,7 @@ import pep8
 
 storage = getenv("HBNB_TYPE_STORAGE", "fs")
 
+
 class TestUser(unittest.TestCase):
     '''
         Testing User class
@@ -62,7 +63,6 @@ class TestUser(unittest.TestCase):
         '''
         self.assertIsInstance(self.new_user, BaseModel)
 
-    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_User_attributes(self):
         '''
             Test the user attributes exist
