@@ -5,9 +5,10 @@
 '''
 
 import unittest
+import pep8
 from models.base_model import BaseModel
 from models.city import City
-from os import getenv
+from os import getenv, remove
 
 storage = getenv("HBNB_TYPE_STORAGE", "fs")
 
@@ -17,25 +18,59 @@ class TestUser(unittest.TestCase):
         Testing User class
     '''
 
+    @classmethod
+    def setUpClass(cls):
+        '''
+            Sets up unittest
+        '''
+        cls.new_city = City()
+        cls.new_city.state_id = "California"
+        cls.new_city.name_id = "San Francisco"
+
+    @classmethod
+    def tearDownClass(cls):
+        '''
+            Tears down unittest
+        '''
+        del cls.new_city
+        try:
+            remove("file.json")
+        except FileNotFoundError:
+            pass
+
+#    def test_pep8_style_check(self):
+#        '''
+#            Tests pep8 style
+#        '''
+#        style = pep8.StyleGuide(quiet=True)
+#        p = style.check_files(['models/cities.py'])
+#        self.assertEqual(p.total_errors, 0, "pep8 error needs fixing")
+#
+    def test_City_dbtable(self):
+        '''
+            Check if the tablename is correct
+        '''
+        self.assertEqual(self.new_city.__tablename__, "cities")
+
     def test_City_inheritance(self):
         '''
-            tests that the City class Inherits from BaseModel
+            Tests that the City class Inherits from BaseModel
         '''
-        new_city = City()
-        self.assertIsInstance(new_city, BaseModel)
+        self.assertIsInstance(self.new_city, BaseModel)
 
     def test_User_attributes(self):
-        new_city = City()
-        self.assertTrue("state_id" in new_city.__dir__())
-        self.assertTrue("name" in new_city.__dir__())
+        '''
+            Test user attributes exist
+        '''
+        self.assertTrue("state_id" in self.new_city.__dir__())
+        self.assertTrue("name" in self.new_city.__dir__())
 
     @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_type_name(self):
         '''
             Test the type of name
         '''
-        new_city = City()
-        name = getattr(new_city, "name")
+        name = getattr(self.new_city, "name")
         self.assertIsInstance(name, str)
 
     @unittest.skipIf(storage == "db", "Testing database storage only")
@@ -43,22 +78,5 @@ class TestUser(unittest.TestCase):
         '''
             Test the type of name
         '''
-        new_city = City()
-        name = getattr(new_city, "state_id")
+        name = getattr(self.new_city, "state_id")
         self.assertIsInstance(name, str)
-
-    def test_hasattr_city(self):
-        '''
-            Check if attributes exists
-        '''
-        new_city = City()
-        self.assertTrue(hasattr(new_city, "name"))
-        self.assertTrue(hasattr(new_city, "state_id"))
-        self.assertTrue(hasattr(new_city, "places"))
-
-    def test_check_tablename(self):
-        '''
-            Checks if the name of table is correct
-        '''
-        new_city = City()
-        self.assertEqual(new_city.__tablename__, "cities")

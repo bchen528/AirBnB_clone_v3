@@ -7,7 +7,8 @@
 import unittest
 from models.base_model import BaseModel
 from models.place import Place
-from os import getenv
+from os import getenv, remove
+import pep8
 
 storage = getenv("HBNB_TYPE_STORAGE", "fs")
 
@@ -17,14 +18,37 @@ class TestUser(unittest.TestCase):
         Testing Place class
     '''
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         '''
-            Creates an instance for place.
+            Sets up unittest
         '''
-        self.new_place = Place()
+        cls.new_place = Place()
 
-    def TearDown(self):
-        pass
+    @classmethod
+    def tearDownClass(cls):
+        '''
+            Tears down unittest
+        '''
+        del cls.new_place
+        try:
+            remove("file.json")
+        except FileNotFoundError:
+            pass
+
+#    def test_pep8_style_check(self):
+#        '''
+#            Tests pep8 style
+#        '''
+#        style = pep8.StyleGuide(quiet=True)
+#        p = style.check_files(['models/places.py'])
+#        self.assertEqual(p.total_errors, 0, "pep8 error needs fixing")
+#
+    def test_Place_dbtable(self):
+        '''
+            Check if the tablename is correct
+        '''
+        self.assertEqual(self.new_place.__tablename__, "places")
 
     def test_Place_inheritance(self):
         '''
