@@ -24,6 +24,7 @@ class TestBase(unittest.TestCase):
         '''
         self.my_model = BaseModel()
         self.my_model.name = "Binita Rai"
+        self.new = BaseModel()
 
     def TearDown(self):
         '''
@@ -56,15 +57,6 @@ class TestBase(unittest.TestCase):
         '''
         self.assertEqual(self.my_model.updated_at.year,
                          self.my_model.created_at.year)
-
-    def test_save(self):
-        '''
-            Checks that after updating the instance; the dates differ in the
-            updated_at attribute.
-        '''
-        old_update = self.my_model.updated_at
-        self.my_model.save()
-        self.assertNotEqual(self.my_model.updated_at, old_update)
 
     def test_str_overide(self):
         '''
@@ -156,3 +148,32 @@ class TestBase(unittest.TestCase):
         my_model_dict = self.my_model.to_dict()
         new_model = BaseModel(my_model_dict)
         self.assertNotEqual(self.my_model, new_model)
+
+    @unittest.skipIf(storage == "db", "Testing database storage only")
+    def test_save(self):
+        '''
+            Checks that after updating the instance; the dates differ in the
+            updated_at attribute.
+        '''
+        old_update = self.new.updated_at
+        self.new.save()
+        self.assertNotEqual(self.new.updated_at, old_update)
+
+    @unittest.skipIf(storage != "db", "Testing if using DBStorage")
+    def test_basemodel_hasattr(self):
+        '''
+            Checks Class attributes
+        '''
+        self.assertTrue(hasattr(self.new, "id"))
+        self.assertTrue(hasattr(self.new, "created_at"))
+        self.assertTrue(hasattr(self.new, "updated_at"))
+
+    @unittest.skipIf(storage != "db", "Testing if using DBStorage")
+    def test_basemodel_attrtype(self):
+        '''
+            Check is attributes type
+        '''
+        new2 = BaseModel
+        self.assertFalse(isinstance(new2.id, str))
+        self.assertFalse(isinstance(new2.created_at, str))
+        self.assertFalse(isinstance(new2.updated_at, str))
