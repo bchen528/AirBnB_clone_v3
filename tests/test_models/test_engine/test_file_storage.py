@@ -8,9 +8,13 @@ import time
 import json
 import unittest
 from models.base_model import BaseModel
+from models.state import State
 from models.engine.file_storage import FileStorage
 
+db = os.getenv("HBNB_TYPE_STORAGE")
 
+
+@unittest.skipIf(db == 'db', "Testing DBstorage only")
 class testFileStorage(unittest.TestCase):
     '''
         Testing the FileStorage class
@@ -101,3 +105,15 @@ class testFileStorage(unittest.TestCase):
             self.assertTrue(True)
         except:
             self.assertTrue(False)
+
+    def test_delete(self):
+        '''
+            Test delete method
+        '''
+        new_state = State()
+        new_state.name = "California"
+        print(new_state)
+        new_state.save()
+        self.storage.new(new_state)
+        self.storage.delete(new_state)
+        self.assertIsInstance(new_state, State)
