@@ -5,6 +5,9 @@
 import unittest
 from models.base_model import BaseModel
 from models.state import State
+from os import getenv
+
+storage = getenv("HBNB_TYPE_STORAGE", "fs")
 
 
 class TestState(unittest.TestCase):
@@ -26,6 +29,7 @@ class TestState(unittest.TestCase):
         new_state = State()
         self.assertTrue("name" in new_state.__dir__())
 
+    @unittest.skipIf(storage == "db", "Testing database storage only")
     def test_State_attributes_type(self):
         '''
             Test that State class attribute name is class type str.
