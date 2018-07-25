@@ -43,14 +43,6 @@ class TestUser(unittest.TestCase):
         except FileNotFoundError:
             pass
 
-#    def test_pep8_style_check(self):
-#        '''
-#            Tests pep8 style
-#        '''
-#        style = pep8.StyleGuide(quiet=True)
-#        p = style.check_files(['models/users.py'])
-#        self.assertEqual(p.total_errors, 0, "pep8 error needs fixing")
-#
     def test_User_dbtable(self):
         '''
             Check if the tablename is correct
