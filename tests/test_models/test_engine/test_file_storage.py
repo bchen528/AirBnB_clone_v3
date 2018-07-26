@@ -7,6 +7,8 @@ import os
 import time
 import json
 import unittest
+import models
+from models import storage
 from models.base_model import BaseModel
 from models.state import State
 from models.engine.file_storage import FileStorage
@@ -120,3 +122,9 @@ class testFileStorage(unittest.TestCase):
             state_dict = json.load(fd)
         for k, v in state_dict.items():
             self.assertFalse(state_id == k.split('.')[1])
+
+    def test_model_storage(self):
+        '''
+            Test State model in Filestorage
+        '''
+        self.assertTrue(isinstance(storage, FileStorage))
