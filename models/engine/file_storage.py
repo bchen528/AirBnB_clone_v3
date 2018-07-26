@@ -18,7 +18,7 @@ class FileStorage:
             Return the dictionary
         '''
         new_dict = {}
-        if cls == None:
+        if cls is None:
             return self.__objects
 
         if cls != "":
