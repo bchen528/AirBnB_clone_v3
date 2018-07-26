@@ -36,6 +36,7 @@ class test_DBStorage(unittest.TestCase):
             delete variables
         '''
         del cls.dbstorage
+        del cls.output
 
     def create(self):
         '''
@@ -91,9 +92,11 @@ class test_DBStorage(unittest.TestCase):
         save_id = new_state.id
         result = storage.all("State")
         temp_list = []
-        for k in result.keys():
+        for k, v in result.items():
             temp_list.append(k.split('.')[1])
+            obj = v
         self.assertTrue(save_id in temp_list)
+        self.assertIsInstance(obj, State)
 
     def test_dbstorage_delete(self):
         '''
