@@ -29,6 +29,7 @@ class test_DBStorage(unittest.TestCase):
         cls.dbstorage = DBStorage()
         cls.output = StringIO()
         sys.stdout = cls.output
+
     @classmethod
     def tearDownClass(cls):
         '''
@@ -81,12 +82,32 @@ class test_DBStorage(unittest.TestCase):
         result = storage.all("State")
         self.assertTrue(len(result) > 0)
 
-"""
-        x = (self.output.getvalue())
-        print(x)
+    def test_dbstorage_new_save(self):
+        '''
+           Testing save method
+        '''
+        new_state = State(name="NewYork")
+        storage.new(new_state)
+        save_id = new_state.id
+        result = storage.all("State")
+        temp_list = []
+        for k in result.keys():
+            temp_list.append(k.split('.')[1])
+        self.assertTrue(save_id in temp_list)
 
-        console.onecmd("create User email=adriel@hbnb.com password=abc")
-        self.storage.save()
-        result = self.storage.all("User")
-        print(result)5A
-"""
+    def test_dbstorage_delete(self):
+        '''
+            Testing delete method
+        '''
+        new_user = User(email="haha@hehe.com", password="abc",
+                        first_name="Adriel", last_name="Tolentino")
+        storage.new(new_user)
+        save_id = new_user.id
+        key = "User.{}".format(save_id)
+        self.assertIsInstance(new_user, User)
+        storage.save()
+        old_result = storage.all("User")
+        del_user_obj = old_result[key]
+        storage.delete(del_user_obj)
+        new_result = storage.all("User")
+        self.assertNotEqual(len(old_result), len(new_result))
