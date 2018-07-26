@@ -143,7 +143,6 @@ class test_console(unittest.TestCase):
 
     @unittest.skipIf(db != 'db', "Testing DBstorage only")
     def test_create_db(self):
-        storage.reload()
         console = self.create()
         console.onecmd("create State name=California")
         result = storage.all("State")
