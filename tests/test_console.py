@@ -5,12 +5,15 @@
 import sys
 import models
 import unittest
+from models import storage
+from models import State
+from models.engine.db_storage import DBStorage
 from io import StringIO
 from console import HBNBCommand
 from unittest.mock import create_autospec
 from os import getenv
 
-storage = getenv("HBNB_TYPE_STORAGE", "fs")
+db = getenv("HBNB_TYPE_STORAGE", "fs")
 
 
 class test_console(unittest.TestCase):
@@ -45,7 +48,7 @@ class test_console(unittest.TestCase):
         console.onecmd("all")
         self.assertTrue(isinstance(self.capt_out.getvalue(), str))
 
-    @unittest.skipIf(storage == "db", "Testing database storage only")
+    @unittest.skipIf(db == "db", "Testing database storage only")
     def test_show(self):
         '''
             Testing that show exists
@@ -62,7 +65,7 @@ class test_console(unittest.TestCase):
         sys.stdout = self.backup
         self.assertTrue(str is type(x))
 
-    @unittest.skipIf(storage == "db", "Testing database storage only")
+    @unittest.skipIf(db == "db", "Testing database storage only")
     def test_show_class_name(self):
         '''
             Testing the error messages for class name missing.
@@ -95,7 +98,7 @@ class test_console(unittest.TestCase):
         sys.stdout = self.backup
         self.assertEqual("** instance id missing **\n", x)
 
-    @unittest.skipIf(storage == "db", "Testing database storage only")
+    @unittest.skipIf(db == "db", "Testing database storage only")
     def test_show_no_instance_found(self):
         '''
             Test show message error for id missing
@@ -117,7 +120,7 @@ class test_console(unittest.TestCase):
             Test that create works
         '''
         console = self.create()
-        console.onecmd("create User")
+        console.onecmd("create User email=adriel@hbnb.com password=abc")
         self.assertTrue(isinstance(self.capt_out.getvalue(), str))
 
     def test_class_name(self):
@@ -137,3 +140,11 @@ class test_console(unittest.TestCase):
         console.onecmd("create Binita")
         x = (self.capt_out.getvalue())
         self.assertEqual("** class doesn't exist **\n", x)
+
+    @unittest.skipIf(db != 'db', "Testing DBstorage only")
+    def test_create_db(self):
+        storage.reload()
+        console = self.create()
+        console.onecmd("create State name=California")
+        result = storage.all("State")
+        self.assertTrue(len(result) > 0)
