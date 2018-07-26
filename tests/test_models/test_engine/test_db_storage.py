@@ -6,6 +6,7 @@ import time
 import unittest
 import sys
 from models.engine.db_storage import DBStorage
+from models import storage
 from models.user import User
 from models.state import State
 from models import storage
@@ -114,3 +115,9 @@ class test_DBStorage(unittest.TestCase):
         storage.delete(del_user_obj)
         new_result = storage.all("User")
         self.assertNotEqual(len(old_result), len(new_result))
+
+    def test_model_storage(self):
+        '''
+            Test to check if storage is an instance for DBStorage
+        '''
+        self.assertTrue(isinstance(storage, DBStorage))
