@@ -4,7 +4,7 @@
 > Only some features will be implemented and will be listed below once completed.
 > At this stage, we are implementing an additional storage option. Based on which 
 > database is chosen (file storage or database storage), JSON is used or
-> MySQL and SQLalchemy is used via Python.
+> MySQL and SQLalchemy is used via Python. Fabric is used for application deployment.
 
 
 ## Features
@@ -43,6 +43,10 @@ Commands | Description | Usage
 **all** | Prints all string representation of all instances based or not on the class name | **all** or **all** \<class_name class_id\>
 **update** | Updates an instance based on the class name and id by adding or updating attribute | **update** \<class_name class_id key value\>
 
+## Resources
+* Fabric: [Usage1](https://www.digitalocean.com/community/tutorials/how-to-use-fabric-to-automate-administration-tasks-and-deployments), [Usage2](https://www.pythonforbeginners.com/systems-programming/how-to-use-fabric-in-python), [Documenation](http://www.fabfile.org/)
+* Nginx: [Beginner's Config file](http://nginx.org/en/docs/beginners_guide.html), [Root vs Alias](https://blog.heitorsilva.com/en/nginx/diferenca-entre-root-e-alias-do-nginx/), 
+
 ## Tests
 
 If you wish to run at the test for this application all of the test are located
@@ -51,7 +55,6 @@ under the **test/** folder and can execute all of them by simply running:
 ```python3 -m unittest discover tests ```
 
 from the root directory.
-
 
 ## Bugs
 
