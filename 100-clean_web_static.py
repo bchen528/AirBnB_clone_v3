@@ -60,7 +60,7 @@ def deploy():
 
 def do_clean(number=0):
     if number == 0:
-        number == 1
+        number = 1
     with cd.local('./versions'):
             local("ls -lt | tail -n +{} | rev | cut -f1 -d" " | rev | \
             xargs -d '\n' rm".format(1 + number))
