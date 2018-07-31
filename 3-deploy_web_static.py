@@ -24,6 +24,7 @@ def do_pack():
     except:
         return None
 
+
 def do_deploy(archive_path):
     """
     Deploy archive to web server
@@ -46,6 +47,7 @@ def do_deploy(archive_path):
         return True
     except:
         return False
+
 
 def deploy():
     archive_path = do_pack()
