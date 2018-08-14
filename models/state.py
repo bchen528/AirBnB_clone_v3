@@ -6,6 +6,7 @@ from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
+import models
 
 
 class State(BaseModel, Base):
@@ -30,7 +31,7 @@ class State(BaseModel, Base):
                 FileStorage relationship between State and City
             '''
             list_cities = []
-            for city in models.storage.all(City).values():
+            for city in models.storage.all("City").values():
                 if city.state_id == self.id:
                     list_cities.append(city)
             return list_cities
