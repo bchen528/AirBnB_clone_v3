@@ -5,7 +5,7 @@ script starts Flask web app
     routes: /:                    display "Hello HBNB!"
             /hbnb:                display "HBNB"
             /c/<text>:            display "C" + text (replace "_" with " ")
-            /python/<text>:       display "Python" + text (default is "is cool")
+            /python/<text>:       display "Python" + text (default="is cool")
             /number/<n>:          display "n is a number" only if int
             /number_template/<n>: display HTML page only if n is int
             /number_odd_or_even/<n>: display HTML page; display odd/even info
