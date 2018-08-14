@@ -19,15 +19,18 @@ def hello_hbnb():
     """display text"""
     return "Hello HBNB!"
 
+
 @app.route('/hbnb')
 def hbnb():
     """display text"""
     return "HBNB"
 
+
 @app.route('/c/<text>')
 def c_text(text):
     """display custom text given"""
     return "C {}".format(text.replace('_', ' '))
+
 
 @app.route('/python')
 @app.route('/python/<text>')
@@ -39,6 +42,7 @@ def python_text(text="is cool"):
     """
     return "Python {}".format(text.replace('_', ' '))
 
+
 @app.route('/number/<int:n>')
 def text_if_int(n):
     """display text only if int given"""
@@ -46,4 +50,4 @@ def text_if_int(n):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port=5000)
