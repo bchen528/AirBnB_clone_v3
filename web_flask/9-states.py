@@ -14,6 +14,7 @@ script starts Flask web app
             /states/<id>:         display HTML and state, city given state id
 """
 from models import storage
+from models import *
 from flask import Flask, render_template
 app = Flask(__name__)
 app.url_map.strict_slashes = False
