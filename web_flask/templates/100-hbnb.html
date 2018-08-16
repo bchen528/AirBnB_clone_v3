@@ -85,7 +85,9 @@
                         </div>
                     </div>
                     <div class="user"><b>Owner: </b>{{ place[0] }}</div>
+		    {% autoescape false %}
                     <div class="description">{{ place[1].description }}</div>
+		    {% endautoescape %}
                 </article>
 		{% endfor %}
             </div>
