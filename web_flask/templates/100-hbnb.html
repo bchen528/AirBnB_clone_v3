@@ -49,15 +49,15 @@
                 <h1>Places</h1>
             </div>
             <div class="articles">
-	      {% for place in place_objs | sort(attribute='name') %}
+	      {% for place in place_owner_objs %}
                 <article>
                     <div class="price_title">
                         <div class="article_title">
-                            <h2>{{ place.name }}</h2>
+                            <h2>{{ place[1].name }}</h2>
                         </div>
                         <div class="price_by_night">
                             <div class="price">
-                                ${{ place.price_by_night }}
+                                ${{ place[1].price_by_night }}
                             </div>
                         </div>
                     </div>
@@ -66,26 +66,26 @@
                             <div class="guest_icon">
                             </div>
                             <div class="guest_number">
-                                <h2>{{ place.max_guest }} Guests</h2>
+                                <h2>{{ place[1].max_guest }} Guests</h2>
                             </div>
                         </div>
                         <div class="number_rooms">
                             <div class="rooms_icon">
                             </div>
                             <div class="rooms_number">
-                                <h2>{{ place.number_rooms }} Bedroom</h2>
+                                <h2>{{ place[1].number_rooms }} Bedroom</h2>
                             </div>
                         </div>
                         <div class="number_bathrooms">
                             <div class="bathrooms_icon">
                             </div>
                             <div class="bathrooms_number">
-			      <h2>{{ place.number_bathrooms }} Bathroom</h2>
+			      <h2>{{ place[1].number_bathrooms }} Bathroom</h2>
 			    </div>
                         </div>
                     </div>
-                    <div class="user"><b>Owner:</b>{{ place.user_id }}</div>
-                    <div class="description">{{ place.description }}</div>
+                    <div class="user"><b>Owner: </b>{{ place[0] }}</div>
+                    <div class="description">{{ place[1].description }}</div>
                 </article>
 		{% endfor %}
             </div>
