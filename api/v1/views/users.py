@@ -8,6 +8,7 @@ import uuid
 
 
 @app_views.route('/users/', methods=['GET'])
+@app_views.route('/users', methods=['GET'])
 def list_users():
     '''Retrieves a list of all User objects'''
     list_users = [obj.to_dict() for obj in storage.all("User").values()]
