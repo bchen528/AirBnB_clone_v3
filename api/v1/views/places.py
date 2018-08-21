@@ -83,9 +83,39 @@ def updates_place(place_id):
         abort(404)
     if not request.get_json():
         abort(400, 'Not a JSON')
-    place_obj[0]['name'] = request.json['name']
+    if 'name' in request.get_json():
+        place_obj[0]['name'] = request.json['name']
+    if 'description' in request.get_json():
+        place_obj[0]['description'] = request.json['description']
+    if 'number_rooms' in request.get_json():
+        place_obj[0]['number_rooms'] = request.json['number_rooms']
+    if 'number_bathrooms' in request.get_json():
+        place_obj[0]['number_bathrooms'] = request.json['number_bathrooms']
+    if 'max_guest' in request.get_json():
+        place_obj[0]['max_guest'] = request.json['max_guest']
+    if 'price_by_night' in request.get_json():
+        place_obj[0]['price_by_night'] = request.json['price_by_night']
+    if 'latitude' in request.get_json():
+        place_obj[0]['latitude'] = request.json['latitude']
+    if 'longitude' in request.get_json():
+        place_obj[0]['longitude'] = request.json['longitude']
     for obj in all_places:
         if obj.id == place_id:
-            obj.name = request.json['name']
+            if 'name' in request.get_json():
+                obj.name = request.json['name']
+            if 'description' in request.get_json():
+                obj.description = request.json['description']
+            if 'number_rooms' in request.get_json():
+                obj.number_rooms = request.json['number_rooms']
+            if 'number_bathrooms' in request.get_json():
+                obj.number_bathrooms = request.json['number_bathrooms']
+            if 'max_guest' in request.get_json():
+                obj.max_guest = request.json['max_guest']
+            if 'price_by_night' in request.get_json():
+                obj.price_by_night = request.json['price_by_night']
+            if 'latitude' in request.get_json():
+                obj.latitude = request.json['latitude']
+            if 'longitude' in request.get_json():
+                obj.longitude = request.json['longitude']
     storage.save()
     return jsonify(place_obj[0]), 200
