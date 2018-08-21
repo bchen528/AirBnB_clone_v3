@@ -28,6 +28,7 @@ def create_review(place_id):
         abort(400, 'Not a JSON')
     if 'user_id' not in request.get_json():
         abort(400, 'Missing user_id')
+    user_id = request.json['user_id']
     if 'text' not in request.get_json():
         abort(400, 'Missing text')
     all_places = storage.all("Place").values()
@@ -39,7 +40,7 @@ def create_review(place_id):
     if user_obj == []:
         abort(404)
     reviews = []
-    new_review = Review(text=request.json['text'], place_id=place_id)
+    new_review = Review(text=request.json['text'], place_id=place_id, user_id=user_id)
     storage.new(new_review)
     storage.save()
     reviews.append(new_review.to_dict())
