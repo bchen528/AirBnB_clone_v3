@@ -50,7 +50,7 @@ def create_user():
     if 'password' not in request.get_json():
         abort(400, 'Missing name')
     users = []
-    new_user = User(name=request.json['name'])
+    new_user = User(email=request.json['email'], password=request.json['password'])
     storage.new(new_user)
     storage.save()
     users.append(new_user.to_dict())
@@ -66,9 +66,26 @@ def updates_user(user_id):
         abort(404)
     if not request.get_json():
         abort(400, 'Not a JSON')
-    user_obj[0]['name'] = request.json['name']
+    try:
+        user_obj[0]['first_name'] = request.json['first_name']
+    except:
+        pass
+    try:
+        user_obj[0]['last_name'] = request.json['last_name']
+    except: 
+        pass
     for obj in all_users:
         if obj.id == user_id:
-            obj.name = request.json['name']
+            try:
+                if request.json['first_name'] is not None:
+                    obj.first_name = request.json['first_name']
+            except:
+                pass
+                
+            try:
+                if request.json['last_name'] is not None:
+                    obj.last_name = request.json['last_name']
+            except:
+                pass
     storage.save()
     return jsonify(user_obj[0]), 200
