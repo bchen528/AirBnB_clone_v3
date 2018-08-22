@@ -51,7 +51,8 @@ def create_user():
     if 'password' not in request.get_json():
         abort(400, 'Missing name')
     users = []
-    new_user = User(email=request.json['email'], password=request.json['password'])
+    new_user = User(email=request.json['email'],
+                    password=request.json['password'])
     storage.new(new_user)
     storage.save()
     users.append(new_user.to_dict())
@@ -73,7 +74,7 @@ def updates_user(user_id):
         pass
     try:
         user_obj[0]['last_name'] = request.json['last_name']
-    except: 
+    except:
         pass
     for obj in all_users:
         if obj.id == user_id:
@@ -82,7 +83,6 @@ def updates_user(user_id):
                     obj.first_name = request.json['first_name']
             except:
                 pass
-                
             try:
                 if request.json['last_name'] is not None:
                     obj.last_name = request.json['last_name']
