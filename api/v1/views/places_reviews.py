@@ -18,7 +18,7 @@ def list_reviews_of_place(place_id):
     if place_obj == []:
         abort(404)
     list_reviews = [obj.to_dict() for obj in storage.all("Review").values()
-                   if place_id == obj.place_id]
+                    if place_id == obj.place_id]
     return jsonify(list_reviews)
 
 
@@ -41,7 +41,8 @@ def create_review(place_id):
     if user_obj == []:
         abort(404)
     reviews = []
-    new_review = Review(text=request.json['text'], place_id=place_id, user_id=user_id)
+    new_review = Review(text=request.json['text'], place_id=place_id,
+                        user_id=user_id)
     storage.new(new_review)
     storage.save()
     reviews.append(new_review.to_dict())
