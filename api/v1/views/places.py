@@ -10,6 +10,7 @@ import uuid
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'])
+@app_views.route('/cities/<city_id>/places/', methods=['GET'])
 def list_places_of_city(city_id):
     '''Retrieves a list of all Place objects in city'''
     all_cities = storage.all("City").values()
