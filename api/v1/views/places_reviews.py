@@ -83,7 +83,8 @@ def updates_review(review_id):
         abort(404)
     if not request.get_json():
         abort(400, 'Not a JSON')
-    review_obj[0]['text'] = request.json['text']
+    if 'text' in request.get_json():
+        review_obj[0]['text'] = request.json['text']
     for obj in all_reviews:
         if obj.id == review_id:
             obj.name = request.json['text']
