@@ -87,6 +87,6 @@ def updates_review(review_id):
         review_obj[0]['text'] = request.json['text']
         for obj in all_reviews:
             if obj.id == review_id:
-                obj.name = request.json['text']
-    storage.save()
+                obj.text = request.json['text']
+        storage.save()
     return jsonify(review_obj[0]), 200
