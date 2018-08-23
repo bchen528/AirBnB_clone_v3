@@ -156,22 +156,3 @@ def get_place_amenity(amenity_id):
     if amenity_obj == []:
         abort(404)
     return jsonify(amenity_obj[0])
-
-
-@app_views.route('/amenities/<amenity_id>', methods=['PUT'])
-def updates_place_amenity(amenity_id):
-    '''Updates a Amenity object'''
-    all_amenities = storage.all("Amenity").values()
-    amenity_obj = [obj.to_dict() for obj in all_amenities
-                   if obj.id == amenity_id]
-    if amenity_obj == []:
-        abort(404)
-    if not request.get_json():
-        abort(400, 'Not a JSON')
-    if 'text' in request.get_json():
-        amenity_obj[0]['text'] = request.json['text']
-        for obj in all_amenities:
-            if obj.id == amenity_id:
-                obj.text = request.json['text']
-        storage.save()
-    return jsonify(amenity_obj[0]), 200
