@@ -12,11 +12,13 @@ class Config():
 class TestCase(unittest.TestCase):
 
     def setUp(self, ** kwargs):
+        pass
+        """
         config = Config()
         config.__dict__.update(kwargs)
-        app = app.create_app(config)
-        self.app = app.test_client()
-
+        a = app.create_app(config)
+        self.a = app.test_client()
+        """
         #self.db_fd, app.config['hbnb_dev_db'] = tempfile.mkstemp()
         #app.testing = True
         #self.app = app.test_client()
@@ -26,6 +28,7 @@ class TestCase(unittest.TestCase):
     def tearDown(self):
         #os.close(self.db_fd)
         #os.unlink(app.config['hbnb_dev_db'])
+        pass
         
 
     def test_create_app(self):
