@@ -5,30 +5,30 @@ import pep8
 from os import getenv
 import requests
 import json
+from api.v1.app import *
+
 
 storage = getenv("HBNB_TYPE_STORAGE")
 
 
 class TestIndex(unittest.TestCase):
     '''test index'''
-    def test_status(self):
+    def test_status(self):        
         '''test status function'''
-        '''
-        response = requests.get('http://0.0.0.0:5000/api/v1/status')
-        self.assertEqual(response.json(), {'status': 'OK'})
-        '''
-        pass
+        with app.test_client() as c:
+            resp = c.get('/api/v1/status')
+            data = json.loads(resp.data.decode('utf-8'))
+            self.assertEqual(data, {'status': 'OK'})
+
 
     def test_count(self):
         '''test count'''
-        '''
-        response = requests.get('http://0.0.0.0:5000/api/v1/stats')
-        r = response.json()
-        for k, v in r.items():
-            self.assertIsInstance(v, int)
-            self.assertTrue(v >= 0)
-        '''
-        pass
+        with app.test_client() as c:
+            resp = c.get('/api/v1/stats')
+            data = json.loads(resp.data.decode('utf-8'))
+            for k, v in data.items():
+                self.assertIsInstance(v, int)
+                self.assertTrue(v >= 0)
 
 
 if __name__ == '__main__':
