@@ -145,10 +145,11 @@ class testFileStorage(unittest.TestCase):
         '''
             Test if count method returns expected number of objects
         '''
+        old_count = storage.count("State")
         new_state1 = State(name="NewYork")
         storage.new(new_state1)
         new_state2 = State(name="Virginia")
         storage.new(new_state2)
         new_state3 = State(name="California")
         storage.new(new_state3)
-        self.assertEqual(storage.count("State"), 3)
+        self.assertEqual(old_count + 3, storage.count("State"))
