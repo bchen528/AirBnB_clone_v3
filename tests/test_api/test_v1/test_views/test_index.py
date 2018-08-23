@@ -30,6 +30,13 @@ class TestIndex(unittest.TestCase):
                 self.assertIsInstance(v, int)
                 self.assertTrue(v >= 0)
 
+    def test_404(self):
+        '''test for 404 error'''
+        with app.test_client() as c:
+            resp = c.get('/api/v1/yabbadabbadoo')
+            data = json.loads(resp.data.decode('utf-8'))
+            self.assertEqual(data, {"error": "Not found"})
+
 
 if __name__ == '__main__':
     unittest.main()
