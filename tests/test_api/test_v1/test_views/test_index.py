@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+'''testing the index route'''
 import unittest
 import pep8
 from os import getenv
@@ -15,14 +16,14 @@ class TestIndex(unittest.TestCase):
         response = requests.get('http://0.0.0.0:5000/api/v1/status')
         self.assertEqual(response.json(), {'status': 'OK'})
 
-
     def test_count(self):
+        '''test count'''
         response = requests.get('http://0.0.0.0:5000/api/v1/stats')
         r = response.json()
         for k, v in r.items():
             self.assertIsInstance(v, int)
             self.assertTrue(v >= 0)
 
-if __name__ == '__main__':
-      unittest.main()
 
+if __name__ == '__main__':
+    unittest.main()
