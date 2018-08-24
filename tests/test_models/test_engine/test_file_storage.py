@@ -135,10 +135,9 @@ class testFileStorage(unittest.TestCase):
         '''
         new_state = State(name="NewYork")
         storage.new(new_state)
-        save_id = new_state.id
-        key = "State.{}".format(save_id)
-        result = storage.get("State", save_id)
-        self.assertTrue(result.id, save_id)
+        key = "State.{}".format(new_state.id)
+        result = storage.get("State", new_state.id)
+        self.assertTrue(result.id, new_state.id)
         self.assertIsInstance(result, State)
 
     def test_count(self):
