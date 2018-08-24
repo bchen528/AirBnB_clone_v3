@@ -137,6 +137,7 @@ class test_DBStorage(unittest.TestCase):
         '''
             Test if count method returns expected number of objects
         '''
+        storage.reload()
         old_count = storage.count("State")
         new_state1 = State(name="NewYork")
         storage.new(new_state1)
