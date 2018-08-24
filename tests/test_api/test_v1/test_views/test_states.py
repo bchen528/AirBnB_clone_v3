@@ -11,7 +11,7 @@ from models.state import State
 from models import storage
 
 
-class TestState(unittest.TestCase):
+class TestStates(unittest.TestCase):
     '''test state'''
     def test_lists_states(self):
         '''test state GET route'''
