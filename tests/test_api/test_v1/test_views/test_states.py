@@ -7,9 +7,8 @@ import requests
 import json
 from api.v1.app import *
 from flask import request, jsonify
-
-
-storage = getenv("HBNB_TYPE_STORAGE")
+from models.state import State
+from models import storage
 
 
 class TestState(unittest.TestCase):
@@ -28,7 +27,19 @@ class TestState(unittest.TestCase):
             resp = c.post('/api/v1/states/', data=json.dumps({"name": "California"}), content_type="application/json")
             self.assertEqual(resp.status_code, 201)
 
-
+    def test_delete_state(self):
+        '''test state DELETE route'''
+        with app.test_client() as c:
+            new_state = State(name="Beckystan")
+            storage.new(new_state)
+            resp = c.get('api/v1/states/{}'.format(new_state.id))
+            self.assertEqual(resp.status_code, 200)
+            resp1 = c.delete('api/v1/states/{}'.format(new_state.id))
+            self.assertEqual(resp.status_code, 200)
+            resp2 = c.get('api/v1/states/{}'.format(new_state.id))
+            self.assertEqual(resp.status_code, 200)
+            # last line should return 404 status code
+            
 """
     def test_get_state(self):        
         '''test state GET by id route'''
