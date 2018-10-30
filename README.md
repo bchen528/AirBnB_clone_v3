@@ -23,32 +23,22 @@
 
 **Links to other versions:**
 * [AirBnB_clone_v1: Console and web static](https://github.com/bchen528/AirBnB_clone_v1)
-* [AirBnB_clone_v3: RESTful API](https://github.com/bchen528/AirBnB_clone_v3)
+* [AirBnB_clone_v2: MySQL, deploy web static, web framework](https://github.com/bchen528/AirBnB_clone_v2)
 * [AirBnB_clone_v4: Web dynamic](https://github.com/bchen528/AirBnB_clone_v4) (Final version!)
 
 ## Purpose
-The purpose of Phase 2 is to learn how to:
-* create a MySQL database
-* use ORM
-* map a Python class to a MySQL table
-* handle 2 different storage engines in same codebase
-* use environmental variables
-* deploy code on a server
-* use Fabric for executing local or remote shell commands, uploading/downloading files, prompting the running user for input, or aborting execution. Fabric is taking care of all network connections (SSH, SCP etc.): it's an easy tool for transferring files and executing commands from local to a remote server.
-* manage Nginx configurations
-* build a web framework with Flask
-* define routes in Flask
-* create HTML response in Flask using a template
-* create dynamic template with Jinja2
-* display data from MySQL database in HTML
+The purpose of Phase 3 is to learn how to:
+* create a RESTful API
+* use CORS
+* request RESTful API
+* retrieve, create, update, delete a resource with HTTP methods
 
 ## Requirements
 * All files compiled with Ubuntu 14.04 LTS
 * Documentation
-* Organized files in proper folders (i.e. CSS files should be in `styles` folder)
+* Organized files in proper folders
 * Python unit tests for all files
-* Use SQLAlchemy 1.2.x and MySQL 5.7
-* All files must be pep8 and shellcheck compliant
+* All files must be pep8 compliant
 
 ## File Descriptions
   **Note:** Below highlights only new file additions for Phase 2. For Phase 1 file descriptions, click [here](https://github.com/bchen528/AirBnB_clone_v1).
@@ -73,15 +63,15 @@ The purpose of Phase 2 is to learn how to:
       * `__repr__` - returns string representation of instance
       * save - updates `updated_at` attribute for new instance
       * to_dict - returns dictionary representation a BaseModel object
-    * user.py - class User
-    * city.py - class City
-    * state.py - class State
-    * place.py - class Place
+    * [user.py](models/user.py) - class User
+    * [city.py](models/city.py) - class City
+    * [state.py](models/state.py) - class State
+    * [place.py](models/place.py) - class Place
       * `reviews` - get list of Review instances with place_id (equals current Place.id)
       * `amenities` getter - returns list of Amenity instances based on the attribute amenity_ids that contains all Amenity.id linked to the Place
       * `amenities` setter - adds an Amenity.id to attribute amenity_ids if obj is an instance of Amenity
-    * review.py - class Review
-    * amenity.py - class Amenity
+    * [review.py](models/review.py) - class Review
+    * [amenity.py](models/amenity.py) - class Amenity
   * [tests](/tests/) - unit test files
   * [engine](models/engine) - contains storage engines
     * [`__init__.py`](/models/engine/__init__.py) - empty `__init__.py` file for packages
@@ -100,44 +90,7 @@ The purpose of Phase 2 is to learn how to:
       * `delete` - delete from the current database session obj if not None
       * `reload` - create all tables in database and current database session
       * `close` - close session
-* [web_flask](web_flask) - contains Flask, templates, and static files
-  * [`__init__.py`](web_flask/__init__.py) - import Flask and create a Flask instance
-  * [0-hello_route.py](web_flask/0-hello_route.py) - script that starts a Flask web application where route `/` displays 'Hello HBNB!'
-  * [1-hbnb_route.py](web_flask/1-hbnb_route.py) - script that starts a Flask web application where route `/` displays 'Hello HBNB~' and route `/hbnb` displays 'HBNB'
-  * [2-c_route.py](web_flask/2-c_route.py) - script that starts a Flask web application where route `/` displays 'Hello HBNB!', `/hbnb` displays 'HBNB', `/c/<text>` displays 'C' followed by the value of the text variable (replace underscore `_` symbols with a space ` `
-  * [3-python_route.py](web_flask/3-python_route.py) - script that starts a Flask web application where route `/` displays 'Hello HBNB!', `/hbnb` displays 'HBNB', `/c/<text>` displays 'C' followed by the value of the text variable (replace underscore `_` symbols with a space ` `, `/python/(<text>)` displays 'Python ', followed by the value of the text variable (replace underscore `_` symbols with a space ` `) where the default value of `text` is 'is cool'
-  * [4-number_route.py](web_flask/4-number_route.py) - script that starts a Flask web application where route `/` displays 'Hello HBNB!', `/hbnb` displays 'HBNB', `/c/<text>` displays 'C' followed by the value of the text variable (replace underscore `_` symbols with a space ` `, `/python/(<text>)` displays 'Python ', followed by the value of the text variable (replace underscore `_` symbols with a space ` `) where the default value of `text` is 'is cool', `/number/<n>` displays '`n` is a number' only if n is an integer
-  * [5-number_template.py](web_flask/5-number_template.py) - script that starts a Flask web application where route `/` displays 'Hello HBNB!', `/hbnb` displays 'HBNB', `/c/<text>` displays 'C' followed by the value of the text variable (replace underscore `_` symbols with a space ` `, `/python/(<text>)` displays 'Python ', followed by the value of the text variable (replace underscore `_` symbols with a space ` `) where the default value of `text` is 'is cool', `/number/<n>` displays '`n` is a number' only if n is an integer, `/number_template/<n>` displays an HTML page only if `n` is an integer
-  * [6-number_odd_or_even.py](web_flask/6-number_odd_or_even.py) - script that starts a Flask web application where route `/` displays 'Hello HBNB!', `/hbnb` displays 'HBNB', `/c/<text>` displays 'C' followed by the value of the text variable (replace underscore `_` symbols with a space ` `, `/python/(<text>)` displays 'Python ', followed by the value of the text variable (replace underscore `_` symbols with a space ` `) where the default value of `text` is 'is cool', `/number/<n>` displays '`n` is a number' only if n is an integer, `/number_template/<n>` displays an HTML page only if `n` is an integer, `/number_odd_or_even/<n>` displays an HTML page only if `n` is an integer where `H1` tag includes 'Number: `n` is `even|odd`' in `BODY` tag
-  * [7-states_list.py](web_flask/7-states_list.py) - script that starts a Flask web application where route `/states_list` displays an HTML page with `H1` tag: “States”, `UL` tag: list of all State objects present in DBStorage sorted by name (A->Z), `LI` tag: description of one `State: <state.id>: <B><state.name></B>`
-  * [8-cities_by_states.py](web_flask/8-cities_by_states.py) - script that starts a Flask web application where route `/cities_by_states` displays an HTML page with `H1` tag: “States”, `UL` tag: list of all State objects present in DBStorage sorted by name (A->Z), `LI` tag: description of one `State: <state.id>: <B><state.name></B>`, `LI` tag: description of one `City: <city.id>: <B><city.name></B>`
-  * [9-states.py](web_flask/9-states.py) - script that starts a Flask web application where route `/states` displays an HTML page with `H1` tag: “States”, `UL` tag: list of all State objects present in DBStorage sorted by name (A->Z), `LI` tag: description of one `State: <state.id>: <B><state.name></B>`; route `/states/<id>`displays an HTML page where if a State object is found with this id: `H1` tag: “State: ”, `H3` tag: “Cities:”, `UL` tag: with the list of City objects linked to the State sorted by name (A->Z), `LI` tag: description of one `City: <city.id>: <B><city.name></B>`; Otherwise: `H1` tag: “Not found!”
-  * [10-hbnb_filters.py](web_flask/10-hbnb_filters.py) - script that starts a Flask web application and defines route `/hbnb_filters` to display an HTML page like below:
-  ![6-index.html_part0](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/290/10-hbnb_filters_0.jpg)
-  ![6-index.html_part1](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/290/10-hbnb_filters_1.jpg)
-  ![6-index.html_part2](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/290/10-hbnb_filters_2.jpg)
-  ![6-index.html_part3](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/290/10-hbnb_filters_3.jpg)
-  * [100-hbnb.py](web_flask/100-hbnb.py) - script that starts a Flask web application and route `/hbnb` displays an HTML page like below:
-  ![8-index.html_part0](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/290/100-hbnb_0.jpg)
-  ![8-index.html_part1](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/290/100-hbnb_1.jpg)
-  ![8-index.html_part2](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/290/100-hbnb_2.jpg)
-  ![8-index.html_part3](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/290/100-hbnb_3.jpg)
-  ![8-index.html_part4](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/290/100-hbnb_4.jpg)
-  * [templates](web_flask/templates) - contains HTML files
-    * [5-number.html](web_flask/templates/5-number.html) - number template
-    * [6-number_odd_or_even.html](web_flask/templates/6-number_odd_or_even.html) - even/odd template
-    * [7-states_list.html](web_flask/templates/7-states_list.html) - list of states template
-    * [8-cities_by_states.html](web_flask/templates/8-cities_by_states.html) - list of cities by states template
-    * [9-states.html](web_flask/templates/9-states.html) - list of states by id template
-    * [10-hbnb_filters.html](web_flask/templates/10-hbnb_filters.html) - filters template
-    * [100-hbnb.html](web_flask/templates/100-hbnb.html) - advanced filters template
-  * [static](web_flask/static) - contains CSS and image files
-    * [styles](web_flask/static/styles) - contains CSS files
-      * [3-header.css](web_flask/static/styles/3-header.css) - header styles
-      * [3-footer.css](web_flask/static/styles/3-footer.css) - footer styles
-      * [4-common.css](web_flask/static/styles/4-common.css) - body styles
-      * [6-filters.css](web_flask/static/styles/6-filters.css) - filter styles
-      * [8-places.css](web_flask/static/styles/8-places.css) - places styles
+
 
 ## Environmental Variables
 ```
