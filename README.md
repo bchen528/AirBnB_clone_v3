@@ -65,7 +65,7 @@ The purpose of Phase 3 is to learn how to:
         * `count` - counts number of objects of a class (if given)
   * [api](api) - contains v1 and v1/views folders
     * [`__init__.py`](api/__init__.py) - empty `__init__.py` file
-    * [v1](api/v1) -contains app file and views folder
+    * [v1](api/v1) - contains app file and views folder
       * [`__init__.py`](api/v1/__init__.py) - empty `__init__.py` file
       * [app.py](api/v1/app.py) - app file
         * `tear` - closes storage engine
