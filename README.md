@@ -43,7 +43,7 @@ The purpose of Phase 3 is to learn how to:
 ## File Descriptions
   **Note:** Below highlights only new file additions for Phase 3. For file descriptions from previous phases, click [Phase 2](https://github.com/bchen528/AirBnB_clone_v2) and [Phase 1](https://github.com/bchen528/AirBnB_clone_v2).
   * [tests](/tests/) - unit test files
-  * [models] (models) - contains all class models for AirBnB objects
+  * [models](models) - contains all class models for AirBnB objects
     * [engine](models/engine) - contains storage engines
       * [`__init__.py`](/models/engine/__init__.py) - empty `__init__.py` file for packages
       * [file_storage.py](/models/engine/file_storage.py) - class FileStorage; serializes instances to JSON file and deserializes from a JSON file
@@ -63,14 +63,14 @@ The purpose of Phase 3 is to learn how to:
         * `close` - close session
         * `get` - retrieves an object
         * `count` - counts number of objects of a class (if given)
-  * [api](api)
+  * [api](api) - contains v1 and v1/views folders
     * [`__init__.py`](api/__init__.py) - empty `__init__.py` file
-    * [v1](api/v1)
+    * [v1](api/v1) -contains app file and views folder
       * [`__init__.py`](api/v1/__init__.py) - empty `__init__.py` file
       * [app.py](api/v1/app.py) - app file
         * `tear` - closes storage engine
         * `not_found` - handles 404 error and gives json formatted response
-      * [views](api/v1/views)
+      * [views](api/v1/views) - contains views for AirBnB objects
         * [`__init__.py`](api/v1/views/__init__.py) - create blueprint
         * [amenities.py](api/v1/views/amenities.py) - view for Amenity objects that handles all default RestFul API actions
           * `list_amenities` - retrieves a list of all Amenity objects
