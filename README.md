@@ -41,7 +41,7 @@ The purpose of Phase 3 is to learn how to:
 * All files must be pep8 compliant
 
 ## File Descriptions
-  **Note:** Below highlights only new file additions for Phase 3. For file descriptions from previous phases, click [Phase 2](https://github.com/bchen528/AirBnB_clone_v2) and [Phase 1](https://github.com/bchen528/AirBnB_clone_v2).
+  **Note:** Below highlights only new file additions for Phase 3. For file descriptions from previous phases, click [Phase 2](https://github.com/bchen528/AirBnB_clone_v2) and [Phase 1](https://github.com/bchen528/AirBnB_clone_v1).
   * [tests](/tests/) - unit test files
   * [models](models) - contains all class models for AirBnB objects
     * [engine](models/engine) - contains storage engines
