@@ -423,13 +423,13 @@ user@ubuntu:~/AirBnB_v3$ curl -X GET http://0.0.0.0:5000/api/v1/cities/1da255c0-
 * Closing connection 0
 ```
 
-## Bugs
+# Bugs
 
 At this time, there are no known bugs.
 
 ## Author
 kevin ngugi <kevinngugi197@gmail.com>
-jessy bandya <jessy.bandya5@gmail.com? 
+jessy bandya <jessy.bandya5@gmail.com>
 ## License
 
 **hbnb** is open source and free to download and use
