@@ -427,21 +427,9 @@ user@ubuntu:~/AirBnB_v3$ curl -X GET http://0.0.0.0:5000/api/v1/cities/1da255c0-
 
 At this time, there are no known bugs.
 
-## Authors
-Phase 3:
-* Becky Chen | [GitHub](https://github.com/bchen528) | [Twitter](https://twitter.com/bchen803)
-* Alex Allen | [GitHub](https://github.com/aDENTinTIME) | [Twitter](https://twitter.com/adentintime)
-
-**Note: As per Holberton's requirements, we practice working with new Phase 1 and 2 codebases in our Phase 3 version.**
-
-Phase 2 codebase: 
-* Melissa Ng | [Github](https://github.com/MelissaN)
-* Adriel Tolentino | [Github](https://github.com/adrielt07)
-
-Phase 1 codebase:
-* Binita Rai | [Github](https://github.com/rayraib)
-* Steven Garcia | [Github](https://github.com/stvngrcia)
-
+## Author
+kevin ngugi <kevinngugi197@gmail.com>
+jessy bandya <jessy.bandya5@gmail.com? 
 ## License
 
 **hbnb** is open source and free to download and use
