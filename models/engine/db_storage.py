@@ -91,10 +91,12 @@ class DBStorage:
 
     def get(self, cls, id):
         '''
+        gets an object
         Args:
             cls (str): class name
             id (str): object ID
-        Returns: an object based on class name and its ID
+        Returns:
+            an object based on class name and its ID
         '''
         obj_dict = models.storage.all(cls)
         for k, v in obj_dict.items():
@@ -106,6 +108,7 @@ class DBStorage:
 
     def count(self, cls=None):
         '''
+        counts number of objects of a class (if given)
         Args:
             cls (str): class name
         Returns:
